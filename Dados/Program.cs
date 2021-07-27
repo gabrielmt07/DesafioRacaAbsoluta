@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Dados
 {
@@ -11,6 +12,36 @@ namespace Dados
             Escrever($"O dado possui {numeroLados} lados!");
             int dadoRolado = RolarDados(numeroLados);
             Escrever($"Dado rolado parou no número {dadoRolado} e é um número '{ParOuImpar(dadoRolado)}'");
+
+            Escrever("");
+            Escrever("--------------------------------------------");
+            Escrever("");
+
+            Escrever("Quantas vezes quer jogar os dados?: ");
+            int jogarDados = StringToInt();
+            var jogadas = Jogadas(jogarDados, numeroLados);
+            Escrever($"A soma das jogadas foi de {SomarJogadas(jogadas)} ");
+        }
+
+        public static int SomarJogadas(List<int> jogadas)
+        {
+            int soma = 0;
+            foreach(int jogada in jogadas)
+            {
+                soma += jogada;
+            }
+            return soma;
+        }
+
+        public static List<int> Jogadas(int jogarDados, int numeroLados)
+        {
+            List<int> jogadas = new List<int>();
+            for (int i=1; i <= jogarDados; i++)
+            {
+                jogadas.Add(RolarDados(numeroLados));
+                Escrever($"Jogada {i}: {jogadas[i-1]}");
+            }
+            return jogadas;
         }
 
         public static int LadosDado(int numero)
